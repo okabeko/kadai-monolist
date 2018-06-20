@@ -10,4 +10,19 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+  
+  def read(result)
+    code = result['itemCode']
+    name = result['itemName']
+    url = result['itemUrl']
+    # 画像URL末尾に含まれる文字列を削除（元画像の取得）
+    image_url = result['mediumImageUrls'].first['imageUrl'].gsub('?_ex=128x128', '')
+    
+    return {
+      code: code,
+      name: name,
+      url: url,
+      image_url: image_url,
+    }
+  end
 end
